@@ -1,0 +1,83 @@
+\chapter{数据简化原理}
+
+\begin{introduction}
+	\item 充分统计量(sufficient statistic)
+	\item 极小充分统计量(minimal sufficient statistic)
+	\item 辅助统计量(ancillary statistic)
+	\item 完备统计量(complete statistic)
+	\item 似然原理
+	\item 同变性原理
+\end{introduction}
+
+若样本数据量大，可能难以解释。试验者希望提取样本值的一些关键特征以概括样本中的信息。这类数据简化（缩减）在计算统计学中通常以样本函数的形式实现，例如，样本均值、样本方差、最大观测值和最小观测值就是四个概括样本关键特征的统计量。
+
+任意一个统计量$T(X)$都定义了一种数据简化方式。如果试验者只观测统计量$T(x)$而非整个样本$x$，则他必将满足$T(x) = T(y)$的$x$和$y$视作两个相同的样本，尽管事实可能并非如此。不同的统计量对数据中的信息划分有不同的方法。
+
+依据某统计量简化样本数据可以看成样本空间$\mathcal{X}$上的一个划分。设$\mathcal{T}=\{t|\exists x \in \mathcal{X}, \text{s.t.} \quad  t=T(x) \}$为$\mathcal{X}$在$T(x)$下的象。则$A_t=\{x|T(x)=t, t \in \mathcal{T}\}$为$\mathcal{X}$若干划分。
+
+原始数据包含了所有信息，规律或随机部分。若进行转化，则将丢失信息，可能有用，也可能无用。其中界限由假设的统计模型判断。转化后的可能结果：
+\begin{enumerate}
+	\item 留下部分有用信息：完备统计量
+	\item 留下所有有用信息：充分统计量
+	\item 不留下有用信息：辅助统计量
+\end{enumerate}
+
+\section{充分性原理}
+
+\begin{example}
+	设$X_1,\dots,X_n \thicksim Binomial(p) \quad \text{i.i.d.} $，设$T(X)=\sum X_i$。
+	若$T=t$已知，则实验结果与$p$无关，由于：
+	$$P(X|T)=\frac{P(X)}{P(T)}=\frac{p^t(1-p)^{n-t}}{\binom{n}{t} p^t(1-p)^{n-t}}=\frac{1}{\binom{n}{t}}$$
+\end{example}
+
+\begin{remark}
+	$T \thicksim Binomial(n,p)$与$p$有关，而$X|T$与参数无关。即原始数据经$T$转化后的$T(X)$，仍包含所有关于参数的信息；而余下的$X|T$不再包含参数信息。
+\end{remark}
+
+\begin{definition}[充分统计量]
+	假设样本$X$，满足分布$P(\theta)$，若统计量$S(X)$，$P(X|S)$与$\theta$无关，则称$S(X)$为关于$\theta$的充分统计量。
+\end{definition}
+
+\begin{remark}
+	充分统计量的判断与统计模型有关，模型不当可能导致充分统计量实际不“充分”。
+\end{remark}
+
+\begin{theorem}[分解定理]
+	$S(X)$为关于$\theta$的充分统计量的充要条件为：
+	$$\exists g(),h() \text{s.t.} f(X|\theta)=g(S(X),\theta)h(X)$$
+\end{theorem}
+
+\begin{remark}
+	直观理解：$P(X)=P(S)P(X|S)$
+\end{remark}
+
+\begin{proof}
+	对于离散情况：\\
+	充分：
+	$$P(S=s)=\sum_{S(x)=s}P(X=x)=g(s,\theta)\sum_{S(x)=s}h(x)$$
+	$$P(X=x|S=s)=\frac{P(X=x)}{P(S=s)}=\frac{h(x)}{\sum_{S(x)=s}h(x)}$$
+	与$\theta$无关。\\
+	必要：\\
+	令$$g(s,\theta)=P(T=s|\theta),h(x)=P(X=x|S=s)$$即可
+\end{proof}
+
+\begin{theorem}
+	若$S(X)$为关于$\theta$的充分统计量，则$\theta$的极⼤然似估计可表示为$S$的函数。
+\end{theorem}
+
+\begin{proof}
+	然似函数为$g(S,\theta)h(X)$。由于$h(X)$为定值，故只需求$g(S,\theta)$的极值情况，故$\theta$的取值可由$S$的函数表示。
+\end{proof}
+
+为使数据尽可能精简，摈弃无用信息，定义极小充分统计量。
+
+\begin{definition}[极小充分统计量]
+	若统计量$M$满足
+	$$\forall S, \exists h  \quad \text{s.t.} \quad
+	 M=h(S) $$
+	则其为关于$\theta$的充分统计量
+\end{definition}
+
+\section{似然原理}
+
+\section{同变性原理}

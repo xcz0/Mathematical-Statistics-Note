@@ -1,0 +1,101 @@
+\chapter{导论: 从数据中学习}\label{chap:intro}
+\section{利用数据推断}\label{intro-inference}
+
+统计是处理带有\emph{随机}性的数据(观测结果)的艺术. 人们设计试验(experiments)并收集数据, 然后希望统计学家能通过数据分析来学到一些知识, 从而有助于解释(explanation)和预测(prediction). 统计推断(inference)的两个基本问题是估计(estimation)和检验(testing), 数理统计学家致力于构建数学的理论, 基于概率模型提出研究数据的方法, 对这两个问题进行回答.
+
+一个典型的\textbf{数据集}(dataset)/\textbf{样本}(sample)形如
+\[ \{x_{i} : 1\leq i\leq n\} = \{x_{1},\dots,x_{n}\}, \]
+其中$i$作为\textbf{标签}(label)指代\textbf{实例}(case/instance/subject)
+\[ x_{i} = (x_{ij})_{1\leq j\leq p} = (x_{i1},\dots,x_{ip}) \in \mathcal{X} = \mathcal{X}_{1}\times\dots\times\mathcal{X}_{p}, \]
+对应的\textbf{变量}(variable)
+\[ x_{,j} = (x_{ij})_{1\leq i\leq n} = (x_{1j},\dots,x_{nj}) \in \mathcal{X}_{j}^{n}, \quad j=1,\cdots,p \]
+刻画了实例的属性(attribution)/特征(feature).
+每个实例的第$j$个变量的取值空间都为$\mathcal{X}_{j}$, 一般分为两种:
+\begin{itemize}
+    \item \textbf{分类}(categorical)数据的取值空间-----离散点集, 比如名称(nominal)和顺序(ordinal).
+    \item \textbf{数值}(numerical)/\textbf{定量}(quantitative)数据的取值空间-----实数集$\R$的子集, 比如计数(counting)常用非负整数集$\mathbb{N} = \{0,1,2,3,\cdots\}$.
+\end{itemize}
+数据集可以用\emph{矩阵}$X=(x_{ij})^{1\leq i\leq n}_{1\leq j\leq p}$表示出来, 第$i$行第$j$列的数据$x_{ij}$为实例$i$的第$j$个变量.
+我们称实例的数目$n$为\textbf{样本容量}(sample size), 变量的数目$p$为样本的\textbf{维数}(dimensionality).
+
+数据处理方法的严格性由概率论来保证. 统计学预设了数据的随机性, 将$x_{i}$视为某个概率空间$(\Omega,\mathscr{F},\P)$上的随机元$X_{i}$的实现(realization)/观测结果(observation). 统计分析得到的结论一般是关于分布$\P\{(X_{1},\dots,X_{n})\in\bullet\}$的推断-----在统计学中可以认为分布包含我们想知道的一切信息, 然而(至少部分)是未知的, 我们试图用收集到的样本(已知信息)来揣度其性质. 这个未知的分布称为\textbf{总体}(population), 所有备选(candidate)总体构成所谓\textbf{统计模型}(statistical model).\footnote{更数学一点的总结可参看\url{https://zhuanlan.zhihu.com/p/101355754}}
+
+
+\section{提炼数据信息的尝试------描述性统计}
+绘制(plot)数据的\textbf{图示}(pattern)能够提供直观印象. 注意有时需要先对数据进行变换, 比如计算出占总数的\emph{比例}(proportion). 常用的统计图示有:
+\begin{itemize}
+    \item \textbf{条形图}(bar graph): \emph{数值数据\textsf{vs}分类数据}, 分类数据等宽, 数值数据的长度表示大小.
+    \item \textbf{饼状图}(pie chart): 表现出每一类数据\emph{占总数的比例}.
+    \item \textbf{直方图}(histogram): \emph{数据的频次\textsf{vs}数值}.
+\end{itemize}
+描述统计图示可以考虑\emph{形状}(shape)、\emph{中心}(center)和\emph{延展}(spread), 比如:\vspace{-1ex}
+\begin{itemize}
+    \setlength{\itemsep}{-1ex}
+    \item 离群值(outlier)?对称(symmetric)?单峰(unimodal)?
+    \item 众数(mode)?
+    \item 右偏(skewed to the right)?
+\end{itemize}
+\newpage
+
+用确定的(不依赖未知总体的)函数作用于样本, 即得\textbf{统计量}(statistic), 这给出了一种数据约简(reduction). 对于实数值样本$x = \{x_{1},\dots,x_{n}\}$, 常见的统计量有: \label{descriptive-statistics}
+\begin{description}
+    \item [样本均值](sample mean)
+          \[ \bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_{i}. \]
+    \item [样本方差](sample variance)
+          \[ s^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}. \]
+          由此可得\textbf{样本标准差}(sample standard deviation) $s = \sqrt{s^2}$.
+    \item [样本中位数](sample median)
+          \[ M = \operatorname{med}(x) = \begin{cases}
+                  \quad x_{(k)},                  & n = 2k-1 \\
+                  \frac{1}{2}(x_{(k)}+x_{(k+1)}), & n = 2k
+              \end{cases} \]
+          其中\emph{顺序统计量}$x_{(1)}\leq\dots\leq x_{(n)}$由$x_{1},\dots,x_{n}$排列得到.
+    \item \textbf{四分位数}(quartile)
+          \[ Q_{1} = \operatorname{med}(x\cap(-\infty,M)), \qquad
+              Q_{3} = \operatorname{med}(x\cap(M,+\infty)). \]
+    \item \textbf{四分位距}(inter quartile range)
+          \[ \mathit{IQR} = Q_{3} - Q_{1}. \]
+    \item \textbf{极差}(range)
+          \[ x_{(n)}-x_{(1)} = \max(x)-\min(x) = \max_{1\leq i,i' \leq n}\{x_{i}-x_{i'}\}. \]
+\end{description}
+\emph{五数概括法}(five-number summary)试图以$x_{(1)},Q_{1},M,Q_{3},x_{(n)}$总结$x$, 可用\textbf{箱形图}(boxplot)表示.
+
+
+\section{刻画变量之间的关系}
+考虑同一批实例的两个变量$x = (x_{i})_{1\leq i\leq n}$和$y = (y_{i})_{1\leq i\leq n}$, 我们或许认为$y$是值得关心的结果(outcome), 并猜想$x$对$y$造成了影响-----此时称$y$为\textbf{响应变量}(response variable), 称$x$为\textbf{解释变量}(explanatory variable).
+
+常用的图示是\textbf{散点图}(scatterplot), 对每个实例$i$绘制数据点$(x_{i},y_{i})$. 我们往往期待\emph{线性}关系, 为此, 可以考虑对数据进行变换, 比如$\log : (0,\infty) \to \R$.
+
+对于实值变量, 常用的统计量有:
+\begin{itemize}
+    \item \textbf{样本协方差}(sample covariance)
+          \[ s_{xy} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y}). \]
+    \item \textbf{样本相关系数}(sample correlation coefficient)
+          \[ r_{xy} = \frac{s_{xy}}{s_{x}s_{y}} = \frac{1}{n-1}\sum_{i=1}^{n}\left(\frac{x_{i}-\bar{x}}{s_{x}}\right)\left(\frac{y_{i}-\bar{y}}{s_{y}}\right), \]
+          其中$s_{x}$和$s_{y}$是相应的样本标准差.
+\end{itemize}
+
+我们常常在散点图中画出\textbf{回归直线}(regression line)\footnote{稍加推广将得到 \S\ref{sec-lm}\,\emph{线性模型}}
+\[ y = \hat{\alpha} + \hat{\beta}x, \]
+其中
+\[ (\hat{\alpha},\hat{\beta}) = \argmin_{(\alpha,\beta)} \sum_{i=1}^{n} (y_{i} -\alpha -\beta x_{i})^{2} \]
+是\textbf{最小二乘法}(method of least squares)的解, 适合
+\[ \hat{\beta} = s_{xy}/s_{x}^{2}, \qquad \hat{\alpha} = \bar{y}-\hat{\beta}\bar{x}. \]
+回归直线是一种简单的线性\emph{拟合}(fitting), 并且给出了一种还算有道理(?)的\emph{预测}(prediction)方法------沿着直线\emph{外推}(extrapolation). 在模型的\emph{训练集}(training set)上, 回归直线得到\textbf{拟合值}(fitted value)
+\[ \hat{y}_{i} = \hat{\alpha}+\hat{\beta}x_{i}, \quad i=1,\cdots,n \]
+与\textbf{残差}(residual)
+\[ \hat{\e}_{i} = y_{i}-\hat{y}_{i}, \quad i=1,\cdots,n. \]
+绘制$(\hat{y}_{i},\hat{\e}_{i})_{1\leq i\leq n}$得到的\textbf{残差图}(residual plot)可以直观地反映拟合效果, 这里$\hat{y}_{i}$是$x_{i}$的线性变换(画图时二者几乎没有区别), 容易推广到多个解释变量的情形.
+
+回归模型能够捕捉变量之间的(线性)\emph{相关性}(association), 但是未必蕴涵\emph{因果关系}(causation). 对响应变量有影响但是难以观测的变量称为\textbf{潜变量}(latent/lurking variable), 无法甄别的解释变量之间存在\textbf{混杂}(confoundedness), 这些都让模型显得不那么可靠. \textbf{因果推断}(causal inference)是统计学中方兴未艾的一个领域, 有人认为2019年炸药奖应该颁发给开创因果分析研究范式\footnote{推荐\url{https://cosx.org/2012/03/causality2-rcm}和\emph{统计之都}的其他文章}的Rubin、Angrist和Imbens, 而不是将实验引入贫困研究的Banerjee、Duflo和Kremer. [\textit{狗头}]
+\hfill  (顺便分享 \href{https://xkcd.com/552}{xkcd漫画}
+
+
+\section{通过试验设计和抽样调查得到数据}
+数据可能来自于\emph{轶闻}(anecdote)或者\emph{可}从某些机构\emph{获得}(available), 不过在统计学中收集数据的常规方法是\textbf{试验}(experiment)和\textbf{抽样调查}(survey sampling). 这部分内容不宜在入门课程中占据过多学时, 稍作了解即可, 有兴趣的同学可以参看\emph{方开泰\,et al.《试验设计与建模》}以及\emph{冯士雍\,et al.《抽样调查理论与方法》}. 尽管如此, 让数据具有好的概率结构(比如独立性)是统计理论中极其重要的部分, 窃以为要诀是\emph{让选取的样本具有代表性}和\emph{利用有限的样本有效解决问题}.
+
+设计试验对\emph{试验点}(experimental unit)施加特定的\emph{处理}(treatment), 一般是不同\emph{因子}(factor)的不同\emph{水平}(level)的组合, 然后观测\emph{输出}(outcome)来获得数据. 试验设计能保证数据的优良性, 多快好省地提供统计分析的素材, 在业界应用广泛. 好的试验应该满足下述准则: \emph{随机}(randomized)、\emph{对照}(comparative)和\emph{重复}(repeated). 识别因果应该需要试验是\emph{双盲}(double-blind)的. 同一\emph{区组}(block)的试验有近似的试验环境, 通过\emph{区组设计}可以减少系统误差的干扰.
+
+抽样调查意为从总体中抽取样本, 根据方法不同可分为\emph{概率抽样}(probability sampling)和\emph{非概率抽样}(non-probability sampling). 非概率抽样不遵循科学的原则, 无法保证样本具有\emph{代表性}, 比如根据主观\emph{经验}进行抽样, 或者出于道德考虑仅对\emph{志愿者}进行调查. 概率抽样是严格地按照给定的概率抽取样本, 包括\emph{简单随机抽样}(simple random sampling)和\emph{分层随机抽样}(stratified random sampling).
+
+特别注意, 试验设计和抽样调查在实践中都会遇到各种各样的问题, 需要项目组织者审慎对待.
