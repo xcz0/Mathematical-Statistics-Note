@@ -1,6 +1,57 @@
-\chapter{点估计}
+\chapter{参数估计}
 
-\section{矩法}
+\section{点估计的概念}
+
+\begin{definition}[点估计]
+    用于估计参数$\gamma = g(\theta)$的统计量$T(\mathbf{X})$称为\textbf{估计量}(estimator), 记为$\hat{\gamma} = T(X)$. 估计式是随机变量, 若给定统计模型, 则其分布由参数$\theta$决定, 将观测数值代入估计式后得到的值称为\textbf{估计值}.
+\end{definition}
+
+将数据代入估计式得到的估计值并不是真实的参数值，若使用新的样本，很可能会得到不同的估计值。
+
+\begin{definition}[标准误差]
+    估计式的\textbf{标准误差}(standard error)定义为其抽样分布的标准差, 即:
+    \[ \sqrt{\operatorname{Var}_{\theta}(\hat{\theta})} \]
+\end{definition}
+
+\begin{definition}[无偏估计]
+    估计式的\textbf{偏差}(standard error)定义为其抽样分布的均值与实际参数的偏差, 即:
+    \[ E_{\theta}(\hat{\theta})-\theta \]
+    若其为零, 则称次估计为\textbf{无偏估计}
+\end{definition}
+
+\begin{definition}[相合]
+    称$\hat{\gamma}$是\textbf{相合的/一致的}(consistent), 若当样本容量$n\to\infty$时, 有
+    \[ \hat{\gamma} \xrightarrow{\P} \gamma, \quad \forall \theta\in\Theta. \]
+    如果上式中$\xrightarrow{\P}$可以增强为$\xrightarrow{\as}$, 则称$\hat{\gamma}$是\textbf{强相合的}.
+\end{definition}
+
+\section{矩方法}
+
+\begin{definition}[样本矩]
+    若$X_1,\cdots ,X_n \overset{\text{i.i.d.}}{\sim}$，则将其$k$阶\textbf{样本矩}定义为：
+    \[ \hat{\mu_k}=\frac{1}{n}\sum_{i=1}^n X_i^k\]
+\end{definition}
+
+\begin{proposition}
+    $k$阶样本矩是关于总体分布$k$阶矩的无偏估计。
+\end{proposition}
+\begin{proof}
+
+\end{proof}
+
+矩方法的步骤：
+\begin{enumerate}
+    \item 将低阶矩写为参数的函数，一般阶数与参数个数相同$(\mu_i)_n=f((\theta)_n)$；
+    \item 找出上一步骤的反函数，通过矩表达参数$(\theta)_n=f^{-1}((\mu_i)_n)$；
+    \item 将样本矩代入，得到参数的估计式$\hat{\theta}=f^{-1}(\hat{\mu_i})$
+\end{enumerate}
+
+\begin{example}[泊松分布的矩估计]\label{moment_estimate_Poisson}
+    设$X_1, \cdots ,X_n \overset{\text{i.i.d.}}{\sim} P(\lambda)$，则其一阶矩$\mu_1=\lambda$，所以$\lambda=\mu_1$，其矩估计为：
+    \[ \hat{\lambda} = \hat{\mu_1} = \overline{X} \]
+\end{example}
+
+
 
 \section{极大然似法}
 
