@@ -20,16 +20,18 @@
 \end{definition}
 
 \begin{definition}[相合]
-    称$\hat{\gamma}$是\textbf{相合的/一致的}(consistent), 若当样本容量$n\to\infty$时, 有
+    若当样本容量$n\to\infty$时, 有
     \[ \hat{\gamma} \xrightarrow{\P} \gamma, \quad \forall \theta\in\Theta. \]
-    如果上式中$\xrightarrow{\P}$可以增强为$\xrightarrow{\as}$, 则称$\hat{\gamma}$是\textbf{强相合的}.
+    则称$\hat{\gamma}$是\textbf{相合的/一致的}(consistent), 如果上式中$\xrightarrow{\P}$可以增强为$\xrightarrow{\as}$, 则称$\hat{\gamma}$是\textbf{强相合的}.
 \end{definition}
 
-\section{矩方法}
+\section{矩估计}
 
-\begin{definition}[样本矩]
-    若$X_1,\cdots ,X_n \overset{\text{i.i.d.}}{\sim}$，则将其$k$阶\textbf{样本矩}定义为：
-    \[ \hat{\mu_k}=\frac{1}{n}\sum_{i=1}^n X_i^k\]
+\begin{definition}[总体矩与样本矩]
+    若$X_1,\cdots ,X_n \overset{\text{i.i.d.}}{\sim} P_{\theta}$，记$k$阶\textbf{总体矩}为:
+    \[ \mu_k(\theta) = \E_{\theta}[X_i^k] ,\quad k \in \mathbb{N}\]
+    记$k$阶\textbf{样本矩}为：
+    \[ \hat{\mu_k}=\frac{1}{n}\sum_{i=1}^n X_i^k ,\quad k \in \mathbb{N}\]
 \end{definition}
 
 \begin{proposition}
@@ -38,6 +40,14 @@
 \begin{proof}
 
 \end{proof}
+
+\begin{definition}
+    参数$\gamma = g(\theta)$的\textbf{矩{\color{lightgray}(方法)}估计量}(method of moments estimator)定义为
+    \[ \hat{\gamma}^{\mathrm{MoM}} = g(\hat{\theta}^{\mathrm{MoM}}) , \]
+    其中$\hat{\theta}^{\mathrm{MoM}}$对选定的$k$满足
+    \[ \mu_{k}(\hat{\theta}^{\mathrm{MoM}}) = \hat{\mu}_{k} . \]
+\end{definition}
+
 
 矩方法的步骤：
 \begin{enumerate}
@@ -51,12 +61,28 @@
     \[ \hat{\lambda} = \hat{\mu_1} = \overline{X} \]
 \end{example}
 
+\begin{example}
+    设$X_{1},\dots,X_{n}$是独立同分布的连续型随机变量, 具有p.d.f.
+    \[ f_{\lambda,a}(x) = \lambda\mathrm{e}^{-\lambda(x-a)}\1_{[x>a]}, \quad x\in\R, \]
+    其中$\lambda > 0$和$a \in \R$未知(\emph{注}: 相应的统计模型是带有\emph{位置}(location)参数和\emph{速率}(rate)参数的指数分布). 易见$X_{i} \stackrel{d}{=} a + Y/\lambda$, 其中$Y \sim \mathrm{Exponential}(1)$. 利用$\E[Y]=1$和$\E[Y^{2}] = 2$, 可以得到
+    \[ \mu_{1}(\lambda,a) = a + 1/\lambda, \quad\&\quad
+        \mu_{2}(\lambda,a) = a^{2} + 2a/\lambda + 2/\lambda^{2} . \]
+    方程
+    \[ \mu_{k}(\hat{\lambda}^{\mathrm{MoM}},\hat{a}^{\mathrm{MoM}}) = \hat{\mu}_{k}, \quad k = 1,2 \]
+    的解
+    \[ \hat{\lambda}^{\mathrm{MoM}} = 1\Big/\sqrt{\hat{\mu}_{2}-\hat{\mu}_{1}^{2}}, \quad\&\quad
+        \hat{a}^{\mathrm{MoM}} = \hat{\mu}_{1}-\sqrt{\hat{\mu}_{2}-\hat{\mu}_{1}^{2}} \]
+    即为$(\lambda,a)$的一种矩估计.
+\end{example}
 
+\begin{remark}
+    矩方法得到的估计量往往可以援引大数定律(LLN)来说明\emph{相合性}. 
+\end{remark}
 
-\section{极大然似法}
+\section{极大然似估计}
 
-\section{评价方法}
+\section{一致最小方差无偏估计}
 
-\section{最小方差无偏估计}
+\section{Cramer-Rao不等式}
 
-\section{Bayes估计}
+\section{概率密度函数的核估计}
