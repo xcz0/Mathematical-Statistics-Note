@@ -81,6 +81,39 @@
 
 \section{极大然似估计}
 
+极大然似估计的基本思想：对于参数空间中的每一个参数，计算在此参数下，观测数据的发生概率，选取最大概率对应的参数。
+
+\begin{definition}[然似函数]
+    设随机变量$X_1,\cdots ,X_n$的联合密度函数（或质量函数）为$f(x_1,\cdots ,x_n|\theta)$。对于某一组观测数据$x_1^* ,\cdots ,x_n^*$，其\textbf{然似函数}(likelihood function)为：
+    \[ \mathfrak{L}(\theta) = f(x_1^* ,\cdots ,x_n^*|\theta) \]
+    对数然似函数(log likelihood function)为$l(\theta)=\log\mathfrak{L}(\theta)$
+\end{definition}
+\begin{remark}
+    联合密度质量函数代表概率，但联合密度函数不是，代表概率所占比例。然似函数是关于参数$\theta$的函数，不是概率，对整个参数空间的积分未必等于一。
+\end{remark}
+
+\begin{definition}[极大然似估计]
+    可使然似函数取最大值的参数被称为\textbf{极大然似估计}，即
+    \[ \hat{\theta}=\max_{\theta \in \Theta}\mathfrak{L}(\theta) \]
+\end{definition}
+\begin{remark}
+    由于对数函数单调递增，最大化然似函数等价于最大化对数然似函数。
+\end{remark}
+
+若样本来源变量独立同分布，即$f(x_1,\cdots ,x_n|\theta)=\prod_{i=1}^nf(x_i|\theta)$，则其然似函数和对数然似函数分布可写为：
+\[ \mathfrak{l}(\theta) = \prod_{i=1}^nf(x_i^*|\theta), \quad l(\theta) = \sum_{i=1}^n \log f(x_i^*|\theta) \]
+
+\begin{proposition}[极大然似估计的不变性]
+    设$\hat{\theta}$是参数$\theta$的极大然似估计，那么对于参数$\theta$的任意函数$\gamma = g(\theta)$，其极大然似估计$\hat{\gamma}=g(\hat{\theta})$
+\end{proposition}
+\begin{proof}
+    %TODO
+\end{proof}
+
+\section{矩估计与极大然似估计的渐进性质}
+
+
+
 \section{一致最小方差无偏估计}
 
 \section{Cramer-Rao不等式}
