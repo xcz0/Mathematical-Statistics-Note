@@ -1,15 +1,15 @@
 \chapter{导论: 从数据中学习}\label{ch:intro}
 
-统计学的主要研究内容是如何处理\underline{随机数据}。研究者希望设计试验收集数据，从中获取信息，并借此\underline{解释}和\underline{预测}数据。统计推断(inference)基于概率模型，对两个基本问题：\underline{估计}(estimation)与\underline{检验}(testing)进行回答。
+统计学的主要研究内容是如何收集和处理\emph{随机数据}。数据的随机性一方面来源于自然物理机制中不可避免的随机性；一方面来源于不能被控制（或者不关心）的其他因素。收集数据时，应尽量使其具有代表性（常通过分层抽样实现）。从数据中获取信息，并借此\emph{解释}和\emph{预测}数据的过程称为\emph{推断}(inference)。统计推断基于概率模型，对两个基本问题：\emph{估计}(estimation)与\emph{检验}(testing)进行回答。为了有效地使用数据进行统计推断，需要给定某些准则去评判不同统计推断方法的优劣。
 
 \section{统计模型}\label{sec:inference}
 
 \begin{definition}[样本]
-      在实验中获取的观测值$\mathbf{x}=(x_1, \cdots ,x_n)$视为某个概率空间$(\Omega,\mathscr{F},\P)$上的随机元$\mathbf{X}=(X_1,\cdots ,X_n)$的\underline{实现}(realization)。一组观测值构成一个\textbf{样本}(sample)，数据的数目$n$称为\textbf{样本容量}(sample size)。
+      在实验中获取的观测值$\mathbf{x}=(x_1, \cdots ,x_n)$视为某个概率空间$(\Omega,\mathscr{F},\P)$上的随机元$X$的\underline{实现}(realization)。概率测度$\P$称为总体，观测值或其对应的随机元称为\textbf{样本}(sample)，这组观测值的数目$n$称为\textbf{样本容量}(sample size)。
 \end{definition}
 
 \begin{definition}[总体]
-      假设$X_i$独立同分布，其分布$P(\bullet):=\P\{X_i \in \bullet\}$称为\textbf{总体}(population)。
+      假设样本来源于各分量$X_i$独立同分布的随机向量，其分布$P(\bullet):=\P\{X_i \in \bullet\}$称为\textbf{总体}(population)。
 \end{definition}
 
 在统计学中可以认为总体$P$包含我们想知道的一切信息，然而（至少部分）是未知的。我们希望用样本$\mathbf{x}$推断总体$P$的性质。
@@ -75,3 +75,7 @@
 \begin{definition}
       \textbf{五数概括法}(five-number summary): 以$x_{(1)},Q_{1},M,Q_{3},x_{(n)}$总结$x$, 可用\textbf{箱形图}(boxplot)表示.
 \end{definition}
+
+\begin{problemset}[错题记录]
+      \item （茆5.5.10）设$x_1,\dotsc,x_n$是来自正态分布$N(\mu,\sigma^2)$的样本，在$\mu$已知时给出$\sigma^2$的一个充分统计量
+  \end{problemset}

@@ -1,6 +1,13 @@
-\chapter{参数估计}
+\chapter{点估计}
 
-\section{点估计的概念}
+\begin{introduction}[考试重点]
+    \item 矩估计和极大似然估计
+    \item 点估计的其他评价方法
+    \item UMVUE
+    \item (弱)相合和强相合
+    \item Fisher信息量和有效估计
+    \item 贝叶斯估计
+\end{introduction}
 
 \begin{definition}[点估计]
     用于估计参数$\gamma = g(\theta)$的统计量$T(\mathbf{X})$称为\textbf{估计量}(estimator), 记为$\hat{\gamma} = T(X)$. 估计式是随机变量, 若给定统计模型, 则其分布由参数$\theta$决定, 将观测数值代入估计式后得到的值称为\textbf{估计值}.
@@ -8,24 +15,45 @@
 
 将数据代入估计式得到的估计值并不是真实的参数值，若使用新的样本，很可能会得到不同的估计值。
 
+\section{点估计的评价方法}
+
+\subsection{无偏性}
+
+\begin{definition}[无偏估计]
+    估计式的\textbf{偏差}(standard error)定义为其抽样分布的均值与实际参数的偏差, 即:
+    \[ E(\hat{\theta})-\theta \]
+    若其为零, 则称此估计为参数$\theta$的\textbf{无偏估计}
+\end{definition}
+
+\begin{definition}[渐进无偏估计]
+    若样本量趋于无穷时，估计式的偏差为零，即:
+    \[ \lim_{n \to \infty}E(\hat{\theta}_n)=\theta \]
+    则称此估计为参数$\theta$的\textbf{渐近无偏估计}
+\end{definition}
+
+\subsection{有效性}
+
 \begin{definition}[标准误差]
     估计式的\textbf{标准误差}(standard error)定义为其抽样分布的标准差, 即:
     \[ \sqrt{\operatorname{Var}_{\theta}(\hat{\theta})} \]
 \end{definition}
 
-\begin{definition}[无偏估计]
-    估计式的\textbf{偏差}(standard error)定义为其抽样分布的均值与实际参数的偏差, 即:
-    \[ E_{\theta}(\hat{\theta})-\theta \]
-    若其为零, 则称次估计为\textbf{无偏估计}
-\end{definition}
+\subsection{相合性}
 
 \begin{definition}[相合]
     若当样本容量$n\to\infty$时, 有
     \[ \hat{\gamma} \xrightarrow{\P} \gamma, \quad \forall \theta\in\Theta. \]
     则称$\hat{\gamma}$是\textbf{相合的/一致的}(consistent), 如果上式中$\xrightarrow{\P}$可以增强为$\xrightarrow{\as}$, 则称$\hat{\gamma}$是\textbf{强相合的}.
 \end{definition}
+\begin{remark}
+    由于参数是常数，所以依概率收敛于依分布收敛等价。
+\end{remark}
 
-\section{矩估计}
+\subsection{渐进效率}
+
+\section{点估计的方法}
+
+\subsection{矩估计}
 
 \begin{definition}[总体矩与样本矩]
     若$X_1,\cdots ,X_n \overset{\text{i.i.d.}}{\sim} P_{\theta}$，记$k$阶\textbf{总体矩}为:
@@ -41,8 +69,8 @@
 
 \end{proof}
 
-\begin{definition}
-    参数$\gamma = g(\theta)$的\textbf{矩{\color{lightgray}(方法)}估计量}(method of moments estimator)定义为
+\begin{definition}[矩法估计量]
+    参数$\gamma = g(\theta)$的\textbf{矩{\color{lightgray}(法)}估计量}(method of moments estimator)定义为
     \[ \hat{\gamma}^{\mathrm{MoM}} = g(\hat{\theta}^{\mathrm{MoM}}) , \]
     其中$\hat{\theta}^{\mathrm{MoM}}$对选定的$k$满足
     \[ \mu_{k}(\hat{\theta}^{\mathrm{MoM}}) = \hat{\mu}_{k} . \]
@@ -75,11 +103,11 @@
     即为$(\lambda,a)$的一种矩估计.
 \end{example}
 
-\begin{remark}
-    矩方法得到的估计量往往可以援引大数定律(LLN)来说明\emph{相合性}. 
-\end{remark}
+\begin{proposition}[矩估计的一致性]
+    
+\end{proposition}
 
-\section{极大然似估计}
+\subsection{极大然似估计}
 
 极大然似估计的基本思想：对于参数空间中的每一个参数，计算在此参数下，观测数据的发生概率，选取最大概率对应的参数。
 
@@ -110,12 +138,44 @@
     %TODO
 \end{proof}
 
-\section{矩估计与极大然似估计的渐进性质}
+\subsection{贝叶斯估计}
 
+\subsection{最小二乘估计}
 
+\section{最小方差无偏估计}
 
-\section{一致最小方差无偏估计}
+\subsection{均方误差}
 
-\section{Cramer-Rao不等式}
+\subsection{一致最小方差无偏估计}
 
-\section{概率密度函数的核估计}
+\subsection{充分性原则}
+
+\subsection{Cramer-Rao不等式}
+
+\begin{problemset}[错题记录]
+    \item （茆6.1.2）
+    \item （茆6.1.8）
+    \item （茆6.1.9）
+    \item （茆6.1.11）
+    \item （茆6.1.12-14）
+    \item （茆6.2.3(2)）
+    \item （茆6.2.8）
+    \item （茆6.3.9）
+    \item （茆6.3.14）
+    \item （茆6.4.3）
+    \item （茆6.4.4）
+    \item （茆6.4.5）
+    \item （茆6.4.6）
+    \item （茆6.4.9）
+    \item （茆6.4.11）
+    \item （茆6.4.12）
+    \item （茆6.4.13）
+    \item （茆6.4.14）
+    \item （茆6.4.16-20）
+    \item （茆6.5.2）
+    \item （茆6.5.12-16）
+    \item （茆6.6.11）
+    \item （茆6.6.13）
+    \item （茆6.6.15-18）
+    \item （茆6.6.20-24）
+\end{problemset}
