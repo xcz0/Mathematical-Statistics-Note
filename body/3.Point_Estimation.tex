@@ -25,18 +25,93 @@
     若其为零, 则称此估计为参数$\theta$的\textbf{无偏估计}
 \end{definition}
 
+\begin{example}[方差的无偏估计]
+    \begin{align*}
+        s^2    & = \frac1{n-1} \sum_{i=0}^n (X_i-\bar{X})^2=\frac1{n-1} [\sum_{i=0}^n X_i^2 - n\bar{X}^2]                                                                         \\
+               & =\frac1{n-1} [\sum_{i=0}^n X_i^2 - \frac1n  (\sum_{i=0}^n X_i)^2] = \frac1{n-1} [\sum_{i=0}^n X_i^2 - \frac1n  (\sum_{i=0}^n X_i^2 + \sum_{i \neq j}^n X_i X_j)] \\
+               & = \frac1n  \sum_{i=0}^n X_i^2 - \frac1{n(n-1)} \sum_{i \neq j}^n X_i X_j                                                                                         \\
+        E(s^2) & = \frac1n  \sum_{i=0}^n E(X_i^2) - \frac1{n(n-1)} \sum_{i \neq j}^n E(X_i X_j) = \mu_2-m_1^2=\sigma^2
+    \end{align*}
+\end{example}
+
 \begin{definition}[渐进无偏估计]
     若样本量趋于无穷时，估计式的偏差为零，即:
-    \[ \lim_{n \to \infty}E(\hat{\theta}_n)=\theta \]
+    \[ \lim_{n \to \infty}E(\hat\theta_n)=\theta \]
     则称此估计为参数$\theta$的\textbf{渐近无偏估计}
 \end{definition}
 
+\begin{example}[样本方差的渐进无偏性]
+    对于样本方差$s_n^2 = \frac1n  \sum_{i=0}^n (X_i-\bar{X})^2$，其期望为$E(s_n^2) = \frac{n-1}n \sigma^2$。当样本量趋于无穷时，有$E(s^{*2})\to\sigma^2$。故$s^{*2}$为$\sigma^2$的渐近无偏估计。
+\end{example}
+
+无偏性\underline{不具有不变性}，即若$\hat{\theta}$是$\theta$的无偏估计，一般而言，其函数$g(\hat{\theta})$不是$g(\theta)$的无偏估计，除非$g(\theta)$是$\theta$的线性函数。譬如，$s^2$是$\sigma^2$的无偏估计，但$s$不是$\sigma$的无偏估计。
+
+\begin{example}
+    设总体为$N(\mu,\sigma^2), x_1, \cdots, x_n$是样本，考察$s$是否是$\sigma$的无偏估计。$Y=\frac{(n-1)s^2}{\sigma^2} \sim \chi^2(n-1)$，其密度函数为
+    \[ p(y)=\frac1{2^{\frac{n-1}2} \Gamma(\frac{n-1}2)} y^{\frac{n-1}2-1}\ee^{-\frac{y}2}, \quad y>0 \]
+    从而
+    \begin{align*}
+        E(Y^{1/2}) & =\int_0^{+\infty} y^{1/2} p(y)\d y = \frac1{2^{\frac{n-1}{2}} \Gamma(\frac{n-1}2)} \int_0^{\infty} y^{\frac{n}{2}-1} \ee^{-\frac{y}{2}} \dd y   \\
+                   & =\frac{2^{\frac{n}{2}} \Gamma(\frac{n}{2})}{2^{\frac{n-1}{2}} \Gamma(\frac{n-1}{2})}=\sqrt{2} \frac{\Gamma(\frac{n}{2})}{\Gamma(\frac{n-1}{2})}
+    \end{align*}
+    由此，我们有
+    \[E(s)=\frac{\sigma}{\sqrt{n-1}} E(Y^{1/2})=\sqrt{\frac2{n-1}} \cdot \frac{\Gamma(n/2)}{\Gamma((n-1)/2)} \cdot \sigma \]
+    这说明$s$不是$\sigma$的无偏估计。
+\end{example}
+
+当参数存在无偏估计时，我们称该参数是\textbf{可估}的，否则称它是不可估的。
+
 \subsection{有效性}
 
-\begin{definition}[标准误差]
-    估计式的\textbf{标准误差}(standard error)定义为其抽样分布的标准差, 即:
-    \[ \sqrt{\operatorname{Var}_{\theta}(\hat{\theta})} \]
+% \begin{definition}[标准误差]
+%     估计式的\textbf{标准误差}(standard error)定义为其抽样分布的标准差, 即:
+%     \[ \sqrt{\operatorname{Var}_{\theta}(\hat{\theta})} \]
+% \end{definition}
+
+参数的无偏估计可以有很多，如何在无偏估计中进行选择？直观的想法是希望该估计围绕参数真值的波动越小越好，波动大小可以用方差来衡量，因此人们常用无偏估计的方差的大小作为度量无偏估计优劣的标准，这就是有效性.
+
+\begin{definition}[有效性]
+    设$\hat\theta_1,\hat\theta_2$是$\theta$的两个\underline{无偏估计}，如果对任意的$\theta\in\Theta$有
+    \[ \Var(\hat\theta_1) \le \Var(\hat\theta_2),  \]
+    且至少有一个$\theta\in\Theta$使得上述不等号严格成立，则称$\hat\theta_1$比$\hat\theta_2$\textbf{有效}。
 \end{definition}
+
+\subsection{均方误差}
+无偏性是估计的一个优良性质，对无偏估计我们还可以通过其方差进行有效性比较.然而不能由此认为：有偏估计一定是不好的估计.
+
+在有些场合，有偏估计比无偏估计更优，这就涉及如何对有偏估计进行评价.一般而言，在样本量一定时，评价一个点估计的好坏使用的度最指标总是点估计值与参数真值8的距离的函数，最常用的函数是距离的平方.由于具有随机性，可以对该函数求期望，
+
+\begin{definition}\label{def:MSE}
+    估计式与参数的平方的期望称为\textbf{均方误差}
+    \[ \text{MSE}(\hat\theta) = E(\hat\theta-\theta)^2 \]
+\end{definition}
+
+注意到
+\begin{align*}
+    \text{MSE}(\hat\theta) & = [ E(\hat\theta - E\hat\theta) + (E\hat\theta - \theta)^2 ]                                                     \\
+                           & = E (\hat\theta - E\hat\theta)^2 + (E\hat\theta - \theta)^2 + 2E[(\hat\theta - E\hat\theta)(E\hat\theta-\theta)] \\
+                           & = \Var(\hat\theta) + (E\hat\theta - \theta)^2
+\end{align*}
+
+因此，均方误差由点估计的方差与偏差的平方两部分组成。如果$\hat\theta$是$\theta$的无偏估计，则$\text{MSE}(\hat\theta)=\Var(\hat\theta)$，此时用均方误差评价点估计与用方差是一样的；当$\hat\theta$不是$\theta$的无偏估计时，就要看其均方误差$\text{MSE}(\hat\theta)$，即不仅要看其方差大小，还要看其偏差大小。
+
+\begin{definition}[一致最小均方误差估计]\label{def:minimum_MSE_estimation}
+    在一个估计类中，若其中的一个估计式$\hat{\theta}$对估计类中任意一个估计式$\tilde{\theta}$，在参数空间$\Theta$上满足
+    \[ \text{MSE}_{\theta}(\hat\theta) \le \text{MSE}_{\theta}(\tilde\theta) ,\quad \forall \theta \in \Theta  \]
+    则称此估计式为该估计类中$\theta$的\textbf{一致最小均方误差估计}。
+\end{definition}
+
+\begin{example}
+    对均匀总体$U(0,\theta)$，考虑$\theta$的形如$\hat\theta_\alpha = \alpha\cdot x_{(n)}$的估计，其均方误差为
+    \begin{align*}
+        \text{MSE}(\hat\theta_\alpha) & = \Var(\alpha\cdot x_{(n)}) + (\alpha Ex_{(n)} - \theta) ^2                                 \\
+                                      & = \alpha^2\Var(x_{(n)}) + \left( \alpha\frac n{n+1}\theta - \theta \right)^2                \\
+                                      & = \alpha^2 \frac n{(n+1)^2(n+2)} + \left( \frac{n\cdot \alpha}{n+1} - 1 \right)^2\theta^2 .
+    \end{align*}
+    用求导的方法不难求出当$\alpha_0=(n+2)/(n+1)$时上述均方误差达到最小，此时$\text{MSE}\left(\frac{n+2}{n+1}x_{(n)}\right)=\frac{\theta^2}{(n+1)^2}$。$\hat\theta_0=\frac{n+2}{n+1}x_{(n)}$虽是$\theta$的有偏估计，但对于无偏估计$\hat\theta=\frac{n+1}{n}x_{(n)}$而言，其均方误差$\text{MSE}(\hat\theta_0)=\frac{\theta^2}{(n+1)^2}<\frac{\theta^2}{n(n+2)}=\text{MSE}(\hat\theta)$。所以在均方误差的标准下，有偏估计$\hat\theta_0$优于无偏估计$\hat\theta$。并且$\hat\theta_0$为形如$\alpha\cdot x_{(n)}$的估计类中$\theta$的一致最小均方误差估计。
+\end{example}
+
+若不对估计加以限制（即考虑所有可能的估计），则一致最小均方误差估计是不存在的，从而没有意义。事实上，若$\hat\theta$是$\theta$的所有估计中的一致最小均方误差估计，取定任一个$\theta_0 \in Theta$，令$\tilde\theta=\theta_0$， 则$\text{MSE}_{\theta_0}(\tilde\theta)=0$，于是要求$\hat\theta_0$也有$\text{MSE}_{\theta_0}(\hat\theta)=0$，由$\theta_0$的任意性，这意味着$\text{MSE}_{\theta}$处处为$0$，这显然是做不到的。
 
 \subsection{相合性}
 
@@ -46,10 +121,78 @@
     则称$\hat{\gamma}$是\textbf{相合的/一致的}(consistent), 如果上式中$\xrightarrow{\P}$可以增强为$\xrightarrow{\as}$, 则称$\hat{\gamma}$是\textbf{强相合的}.
 \end{definition}
 \begin{remark}
-    由于参数是常数，所以依概率收敛于依分布收敛等价。
+    由于参数是常数，所以依概率收敛与依分布收敛等价。
 \end{remark}
 
-\subsection{渐进效率}
+若把依赖于样本量$n$的估计量$\hat\theta_n$. 看作一个随机变量序列, 相合性就是$\hat\theta_n$. 依概率收敛于$\theta$，所以证明估计的相合性可应用依概率收敛的性质及各种大数定律.
+
+\begin{example}\label{exam:6.2.1}
+    设$x_1,\cdots,x_n$是来自正态总体$N(\mu,\sigma^2)$的样本，则由辛钦大数定律及依概率收敛的性质知:
+    \begin{itemize}
+        \item$\bar x$是$\mu$的相合估计;
+        \item$s^{*2}$是$\sigma^2$的相合估计;
+        \item$s^2$也是$\sigma^2$的相合估计.
+    \end{itemize}
+    由此可见参数的相合估计不止一个.
+\end{example}
+
+\begin{theorem}[相合性定理]
+    设$\hat\theta_n=\hat\theta_n(x_1,\cdots,x_n)$是$\theta$的一个估计量, 若
+    \[ \lim_{n \to \infty} E(\hat\theta_n)=\theta, \quad \lim_{n \to \infty} \operatorname{Var}(\hat\theta_n)=0 \]
+    则$\hat\theta_n$是$\theta$的相合估计，
+\end{theorem}
+\begin{proof}
+    由切比雪夫不等式有
+    \[ P(|\hat\theta_n - E(\hat\theta_n)| \geq \e/2) \leq \frac{4}{\e^2} \operatorname{Var}(\hat\theta_n), \quad \forall  \e>0\]
+    另一方面，由$\lim_{n \to \infty} E(\hat\theta_n)=\theta$可知
+    \[ \exists N , \forall n>N \st |E(\hat\theta_n)-\theta| < \e/2\]
+    注意到如果$|\hat\theta_n-E(\hat\theta_n)|<\e/2$，就有
+    \[ |\hat\theta_n - \theta| \leq |\hat\theta_n - E(\hat\theta_n)|+|E(\hat\theta_n) - \theta| < \e\]
+    故
+    \[ \{|\hat\theta_n - E(\hat\theta_n)| < \e/2\} \subset | \hat\theta_n - \theta | < \e \]
+    等价地
+    \[ \{ |\hat\theta_n - E(\hat\theta_n)| < \e/2 \} \supset \{|\hat\theta_n - \theta| < \e \}\]
+    由此即有
+    \[ P(|\hat\theta_n - \theta| > \e) \leq P(|\hat\theta_n - E(\hat\theta_n)| \geq \e/2) \leq \frac{4}{\e^2} \operatorname{Var}(\hat\theta_n) \to 0 \]
+\end{proof}
+
+\begin{theorem}[相合估计的连续映射]
+    若$\hat{\theta}_{n1},\cdots,\hat{\theta}_{nk}$分别是$\theta_1,\cdots,\theta_k$的相合估计，$\eta=g(\theta_1,\cdots,\theta_k)$是$\theta_1,\cdots,\theta_k$的连续函数，则$\bar{\eta}_n=g(\hat{\theta}_{n1},\cdots,\hat{\theta}_{nk})$是$\eta$的相合估计。
+\end{theorem}
+\begin{proof}
+    由函数$g$的连续性，对$\forall \e>0$，存在$\exists \delta>0$，当满足$|\hat{\theta}_j-\theta_j|<\delta,j=1,\cdots,k$时，有
+    \[ |g(\hat{\theta}_1, \cdots, \hat{\theta}_{k})-g(\theta_1, \cdots, \theta_{k})|<\e \]
+    即
+    \[ \bigcap_{j=1}^k \{|\hat{\theta}_{n j}-\theta_j| < \delta\} \subset \{ | \hat\eta_n - \eta | < \e \} \]
+    又由$\hat{\theta}_{n1},\cdots,\hat{\theta}_{nk}$的相合性得
+    \[ \forall v>0 ,\exists N \in N_+, \forall n>N \st P(|\hat{\theta}_{n j}-\theta_{j}| \geq \delta)<v/k, \quad j=1, \cdots, k\]
+    从而有
+    \begin{align*}
+        P\left(\left|\hat{\eta}_n -\eta\right|<\e\right) & >
+        P\left(\bigcap_{i=1}^k\{|\hat{\theta}_{n j} - \theta_j|<\delta\}\right)                                                              \\
+                                                         & = 1-P\left(\bigcup_{j=1}^k\{ | \hat{\theta}_{n j}-\theta_j | \geq \delta\}\right) \\
+                                                         & \geq 1-\sum_{j=1}^k P(|\hat{\theta}_{n j}-\theta_j| \geq \delta)                  \\
+                                                         & >1 - k \cdot v/k = 1-v
+    \end{align*}
+    由$v$的任意性，定理得证。
+\end{proof}
+
+\subsection{渐近正态性}
+
+\begin{definition}[渐近正态性]
+    对于参数$\tau(\theta)$的相合估计$T_n$，若存在趋于$0$的非负常数序列$\sigma_n(\theta)$，使得
+    \[ \frac{T_n - \tau(\theta)}{\sigma_n(\theta)} \xrightarrow{d} N(0,1) \]
+    则称$T_n$是\textbf{渐近正态}的，服从渐近正态分布$N(\tau(\theta),\sigma_n(\theta)^2)$，记为$T_n \sim AN(\tau(\theta),\sigma_n(\theta)^2)$，$\sigma_n(\theta)^2$为$T_n$的\textbf{渐近方差}或$T_n$的极限分布的方差。
+\end{definition}
+\begin{remark}
+    $\sigma_n(\theta)$表示着估计量$T_n$依概率收敛于$\tau(\theta)$的速度。由中央极限定理可看出，通常为$\frac1{\sqrt{n} }$量级。
+\end{remark}
+
+\begin{example}
+    设总体为泊松分布$P(\lambda)$，以样本均值为其参数估计，即
+    \[ \hat\lambda_n=\bar{x_n} \]
+    由中心极限定理，$\frac{\hat\lambda_n-\lambda}{\sqrt{\lambda/n}}$依分布收敛于$N(0,1)$，因此，$\hat\lambda_n$是渐近正态的，
+\end{example}
 
 \section{点估计的方法}
 
@@ -57,32 +200,35 @@
 
 \begin{definition}[总体矩与样本矩]
     若$X_1,\cdots ,X_n \overset{\text{i.i.d.}}{\sim} P_{\theta}$，记$k$阶\textbf{总体矩}为:
-    \[ \mu_k(\theta) = \E_{\theta}[X_i^k] ,\quad k \in \mathbb{N}\]
+    \[ \mu_k(\theta) = \E_{\theta}[X_i^k] ,\quad k \in \mathbb{N} \]
     记$k$阶\textbf{样本矩}为：
-    \[ \hat{\mu_k}=\frac{1}{n}\sum_{i=1}^n X_i^k ,\quad k \in \mathbb{N}\]
+    \[ \hat\mu_k=\frac1n \sum_{i=1}^n X_i^k ,\quad k \in \mathbb{N} \]
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}[矩估计的无偏性]
     $k$阶样本矩是关于总体分布$k$阶矩的无偏估计。
 \end{proposition}
 \begin{proof}
-
+    \[ E(\hat\mu_k)=\frac1n \sum_{i=1}^n E(X_i^k)=\mu_k \]
 \end{proof}
 
-\begin{definition}[矩法估计量]
-    参数$\gamma = g(\theta)$的\textbf{矩{\color{lightgray}(法)}估计量}(method of moments estimator)定义为
-    \[ \hat{\gamma}^{\mathrm{MoM}} = g(\hat{\theta}^{\mathrm{MoM}}) , \]
-    其中$\hat{\theta}^{\mathrm{MoM}}$对选定的$k$满足
-    \[ \mu_{k}(\hat{\theta}^{\mathrm{MoM}}) = \hat{\mu}_{k} . \]
-\end{definition}
-
+% \begin{definition}[矩法估计量]
+%     参数$\gamma = g(\theta)$的\textbf{矩{\color{lightgray}(法)}估计量}(method of moments estimator)定义为
+%     \[ \hat{\gamma}^{\mathrm{MoM}} = g(\hat{\theta}^{\mathrm{MoM}}) , \]
+%     其中$\hat{\theta}^{\mathrm{MoM}}$对选定的$k$满足
+%     \[ \mu_{k}(\hat{\theta}^{\mathrm{MoM}}) = \hat{\mu}_{k} . \]
+% \end{definition}
 
 矩方法的步骤：
 \begin{enumerate}
-    \item 将低阶矩写为参数的函数，一般阶数与参数个数相同$(\mu_i)_n=f((\theta)_n)$；
-    \item 找出上一步骤的反函数，通过矩表达参数$(\theta)_n=f^{-1}((\mu_i)_n)$；
-    \item 将样本矩代入，得到参数的估计式$\hat{\theta}=f^{-1}(\hat{\mu_i})$
+    \item 将低阶矩通过参数表达，一般阶数与待估参数个数相同$\bf\mu=f(\bf\theta)$；
+    \item 找出上一步骤的反函数，通过矩表达参数$\bf\theta=f^{-1}(\bf\mu)$；
+    \item 将样本矩代入，得到参数的估计式$\hat{\theta}=f^{-1}(\hat{\bf\mu})$
+    \item 将参数的矩估计式代入函数$g(\bf\theta)$，得到参数的函数$\eta = g(\theta)$的矩估计。
 \end{enumerate}
+\begin{remark}
+    对于参数的函数的估计，矩估计和极大似然估计都是将对参数的估计代入。但极大似然估计的做法是根据其不变性；而矩估计是源于定义，不保证与函数的矩估计相同。
+\end{remark}
 
 \begin{example}[泊松分布的矩估计]\label{moment_estimate_Poisson}
     设$X_1, \cdots ,X_n \overset{\text{i.i.d.}}{\sim} P(\lambda)$，则其一阶矩$\mu_1=\lambda$，所以$\lambda=\mu_1$，其矩估计为：
@@ -90,22 +236,18 @@
 \end{example}
 
 \begin{example}
-    设$X_{1},\dots,X_{n}$是独立同分布的连续型随机变量, 具有p.d.f.
+    设$X_1,\dots,X_n$是独立同分布的连续型随机变量, 具有p.d.f.
     \[ f_{\lambda,a}(x) = \lambda\mathrm{e}^{-\lambda(x-a)}\1_{[x>a]}, \quad x\in\R, \]
-    其中$\lambda > 0$和$a \in \R$未知(\emph{注}: 相应的统计模型是带有\emph{位置}(location)参数和\emph{速率}(rate)参数的指数分布). 易见$X_{i} \stackrel{d}{=} a + Y/\lambda$, 其中$Y \sim \mathrm{Exponential}(1)$. 利用$\E[Y]=1$和$\E[Y^{2}] = 2$, 可以得到
-    \[ \mu_{1}(\lambda,a) = a + 1/\lambda, \quad\&\quad
-        \mu_{2}(\lambda,a) = a^{2} + 2a/\lambda + 2/\lambda^{2} . \]
+    其中$\lambda > 0$和$a \in \R$未知(\emph{注}: 相应的统计模型是带有\emph{位置}(location)参数和\emph{速率}(rate)参数的指数分布). 易见$X_i \stackrel{d}{=} a + Y/\lambda$, 其中$Y \sim \mathrm{Exponential}(1)$. 利用$\E[Y]=1$和$\E[Y^2] = 2$, 可以得到
+    \[ \mu_1(\lambda,a) = a + 1/\lambda, \quad\&\quad
+        \mu_2(\lambda,a) = a^2 + 2a/\lambda + 2/\lambda^2 . \]
     方程
     \[ \mu_{k}(\hat{\lambda}^{\mathrm{MoM}},\hat{a}^{\mathrm{MoM}}) = \hat{\mu}_{k}, \quad k = 1,2 \]
     的解
-    \[ \hat{\lambda}^{\mathrm{MoM}} = 1\Big/\sqrt{\hat{\mu}_{2}-\hat{\mu}_{1}^{2}}, \quad\&\quad
-        \hat{a}^{\mathrm{MoM}} = \hat{\mu}_{1}-\sqrt{\hat{\mu}_{2}-\hat{\mu}_{1}^{2}} \]
+    \[ \hat{\lambda}^{\mathrm{MoM}} = 1\Big/\sqrt{\hat{\mu}_2-\hat{\mu}_1^2}, \quad\&\quad
+        \hat{a}^{\mathrm{MoM}} = \hat{\mu}_1-\sqrt{\hat{\mu}_2-\hat{\mu}_1^2} \]
     即为$(\lambda,a)$的一种矩估计.
 \end{example}
-
-\begin{proposition}[矩估计的一致性]
-    
-\end{proposition}
 
 \subsection{极大然似估计}
 
@@ -140,28 +282,278 @@
 
 \subsection{贝叶斯估计}
 
+贝叶斯估计的基本观点是：任一未知量$\theta$都可看作随机变量，可用概率分布$\pi(\theta)$描述，称为\textbf{先验分布}；在获得样本之后，总体分布、样本与先验分布通过贝叶斯公式结合起来得到关于未知量$\theta$的后验分布$\pi(\theta | \bf{X})$。任何关于$\theta$的统计推断都基于$\theta$的后验分布进行。利用后验分布$\pi(\theta|\bf{X})$估计$\theta$有三种常用的方法：
+\begin{itemize}
+    \item 使用后验分布的密度函数最大值点作为$\theta$的点估计的最大后验估计;
+    \item 使用后验分布的中位数作为$\theta$的点估计的后验中位数估计;
+    \item 使用后验分布的均值作为$\theta$的点估计的后验期望估计.
+\end{itemize}
+用得最多的是后验期望估计, 它一般也简称为贝叶斯估计, 记为的$\hat{\theta}_B$。
+
+获取后验分布的步骤：
+\begin{enumerate}
+    \item 根据总体信息与样本信息确定模型$p(\bf{X} | \theta)$，根据先验信息确定参数$\theta$的先验分布$\pi(\theta)$
+    \item 综合总体信息、样本信息和先验信息得到样本$\bf{X}$和参数$\theta$的联合分布
+          \[h(\bf{X}, \theta)=p(\bf{X}|\theta) \pi(\theta)\]
+    \item 为求后验分布$\pi(\theta|\bf{X})=\frac{h(\bf{X}, \theta)}{m(\bf{X})}$，先求$X$的边际概率函数:
+          \[ m(\bf{X})=\int_{\bf{\theta}} h(\bf{X}, \theta) \mathrm{d} \theta=\int_{\bf{\theta}} p(\bf{X}| \theta) \pi(\theta) \mathrm{d} \theta \]
+    \item 得到后验分布
+          \[ \pi(\theta | \bf{X})=\frac{h(\bf{X}, \theta)}{m(\bf{X})}=\frac{p(\bf{X} | \theta) \pi(\theta)}{\int_{\bf{\theta}} p(\bf{X} | \theta) \pi(\theta) \mathrm{d} \theta} \]
+\end{enumerate}
+
+\begin{definition}[共扼先验分布]
+    设$\theta$是总体参数，$\pi(\theta)$是其先验分布, 若对任意的样本观测值得到的后验分布$\pi(\theta|\bf{X})$与$\pi(\theta)$属于同一个分布族, 则称该分布族是$\theta$的\textbf{共扼先验分布（族）}。
+\end{definition}
+
+\begin{example}
+    设某事件$A$在一次试验中发生的概率为$\theta$，为估计$\theta$，对试验进行了$n$次独立观测，其中事件$A$发生了$X$次，显然$X | \theta \sim b(n, \theta)$，即
+    \[P(X=x | \theta)=\binom{n}{x} \theta^{x}(1-\theta)^{n-x}, \quad x=0,1, \cdots, n\]
+    假若我们在试验前对事件$A$没有什么了解，从对其发生的概率也没有任何信息。在这种场合，贝叶斯本人建议采用“同等无知”的原则，使用区间$(0,1)$上的均匀分布$U(0,1)$作为$\theta$的先验分布。贝叶斯的这个建议被后人称为贝叶斯假设。
+\end{example}
+\begin{solution}
+    先写出$X$和$\theta$的联合分布
+    \[ h(x, \theta)=\binom{n}{x} \theta^x (1-\theta)^{n-x}, \quad x=0,1, \cdots, n, \quad 0<\theta<1\]
+    然后求$X$的边际分布
+    \[ m(x)=\binom{n}{x} \int_0^1 \theta^x (1-\theta)^{n - x} \d \theta=\binom{n}{x} \frac{\Gamma(x+1) \Gamma(n-x+1)}{\Gamma(n+2)}\]
+    最后求出$\theta$的后验分布
+    \[ \pi(\theta | x) =\frac{h(x, \theta)}{m(x)} =\frac{\Gamma(n+2)}{\Gamma(x+1) \Gamma(n-x+1)} \theta^{(x+1)-1}(1-\theta)^{(n-x+1)-1}, \quad 0<\theta<1  \]
+    即$\theta | x \sim B e(x+1, n-x+1)$，故贝塔分布是伯努利试验中成功概率的共枙先验分布。其后验期望估计为
+    \[ \hat{\theta}_{\mathrm{B}}=E(\theta | x)=\frac{x+1}{n+2} \]
+\end{solution}
+
+\begin{example}
+    设$x_1, \cdots, x_n$是来自$N(\mu, \sigma_0^2)$的一个样本, 其中$\sigma_0^2$已知，$\mu$未知。假设$\mu$的先验分布亦为正态分布$N(\theta, \tau^2)$，其中先验均值$\theta$和先验方差$\tau^2$均已知，试求$\mu$的贝叶斯估计。
+\end{example}\begin{solution}
+    样本$\bf X$的分布和$\mu$的先验分布分别为
+    \begin{align*}
+        p(\bf{X} | \mu) & = (2 \pi \sigma_0^2)^{-n/2} \exp \left\{-\frac1{2 \sigma_0^2} \sum_{i=1}^n (x_i-\mu)^2\right\} \\
+        \pi(\mu)        & = (2 \pi \tau^2)^{-1/2} \exp \left\{-\frac1{2 \tau^2}(\mu-\theta)^2 \right\}
+    \end{align*}
+    由此可以写出$\bf X$与$\mu$的联合分布为
+    \[ h(\bf{X}, \mu)=k_1 \cdot \exp \left\{-\frac12\left[\frac{n\mu^2 - 2n\mu \overline{x}+\sum_{i=1}^n  x_i^2}{\sigma_0^2}+\frac{\mu^2 - 2\theta \mu+\theta^2}{\tau^2}\right]\right\}\]
+    其中$\overline{x}=\frac1n  \sum_{i=1}^n  x_i, k_1=(2 \pi)^{-(n+1)/2} \tau^{-1} \sigma_0^{-n}$。若记
+    \[ A=\frac{n}{\sigma_0^2}+\frac1{\tau^2}, \quad B=\frac{n \overline{x}}{\sigma_0^2}+\frac{\theta}{\tau^2}, \quad C=\frac{\sum_{i=1}^n  x_i^2}{\sigma_0^2}+\frac{\theta^2}{\tau^2}\]
+    则有
+    \begin{align*}
+        h(\bf{X}, \mu) & =k_1 \exp \left\{-\frac12[A \mu^2-2 B\mu+C] \right\}               \\
+                       & =k_1 \exp \left\{-\frac{(\mu-B/A)^2}{2/A}-\frac12(C-B^2/A)\right\}
+    \end{align*}
+    样本的边际密度函数为
+    \[ m(\bf{X})=\int_{-\infty}^{+\infty} h(\bf{X}, \mu) \d\mu=k_1 \exp \left\{-\frac12(C-B^2/A)\right\}(2 \pi/A)^{1/2} \]
+    应用贝叶斯公式即可得到后验分布
+    \[ \pi(\mu|\bf{X})=\frac{h(\bf{X}, \mu)}{m(\bf{X})}=(2 \pi/A)^{-1/2} \exp \left\{-\frac1{2/A}{(\mu-B/A)^2}\right\}\]
+    这说明在样本给定后，$\mu$的后验分布为$N(B/A,1/A)$, 即
+    \[ \mu | \mathbf{X} \sim N\left(\frac{n \overline{x} \tau^2 +\theta\sigma_0^2}{n\tau^2 +\sigma_0^2}, \frac{\sigma_0^2\tau^2}{n \tau^2 +\sigma_0^2}\right)\]
+    故正态分布是正态总体的共枙先验分布。后验均值即为其贝叶斯估计:
+    \[ \hat{\mu}=\frac{n\tau^2}{n\tau^2 +\sigma_0^2} \bar{x}+\frac{\sigma_0^2}{n\tau^2 +\sigma_0^2} \theta\]
+    它是样本均值$\bar x$与先验均值$\theta$的加权平均. 当总体方差$\sigma_0^2$较小或样本量$n$较大时, 样本均值$\bar x$的权重较大; 当先验方差$\tau^2$较小时, 先验均值$\theta$的权重较大, 这一综合很符合人们的经验。
+\end{solution}
+
+\begin{table}[h]
+    \renewcommand\arraystretch{1.5}
+    \centering
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        总体                   & 参数       & 共轭分布族                                                                                                                                             \\ \midrule
+        $U(\theta-a,\theta+b)$ & $\theta$   & 均匀分布                                                                                                                                               \\
+        $B(n,p)$               & $p$        & Beta分布                                                                                                                                               \\
+        $Poi(\lambda)$         & $\lambda$  & $Ga(\alpha,\beta)\to Ga(\alpha+n\bar{x},\beta+n)$                                                                                                      \\
+        $N(\mu,\sigma_0^2)$    & $\mu$      & $N(\theta,\tau^2)\to N\left(\frac{n \overline{x} \tau^2 +\theta\sigma_0^2}{n\tau^2 +\sigma_0^2}, \frac{\sigma_0^2\tau^2}{n \tau^2 +\sigma_0^2}\right)$ \\
+        $N(\mu,\sigma^2)$      & $\sigma^2$ & $IGa(\alpha,\lambda)\to IGa(\alpha+\frac{n}{2},\beta+\frac{n}{2} \overline{(x-\mu)^2})$                                                                \\
+        \bottomrule
+    \end{tabular}
+    \caption{常见共轭分布族}
+\end{table}
+
 \subsection{最小二乘估计}
 
 \section{最小方差无偏估计}
 
-\subsection{均方误差}
+由于一致最小均方误差估计（定义\ref{def:minimum_MSE_estimation}）一般都不存在，为方便起见，需对估计加一些合理性前置要求，前述无偏性就是一个最常见的合理性要求。
 
-\subsection{一致最小方差无偏估计}
+\subsection{最小方差无偏估计}
+
+\begin{definition}[一致最小方差无偏估计]\label{def:UMVUE}
+    设$\hat\theta$是$\theta$的一个无偏估计，如果对任意一个$\theta$的无偏估计$\tilde\theta$，在参数空间$\Theta$上都有
+    \[ \Var_\theta(\hat\theta) \le \Var_\theta(\tilde\theta) \]
+    则称$\hat\theta$是$\theta$的\textbf{一致最小方差无偏估计}(uniformly minimum variance unbiased estimation, UMVUE)。
+\end{definition}
+
+\begin{theorem}[UMVUE的充要条件]
+    设$\bf X=(x_1,\cdots,x_n)$是来自某总体的一个样本，$\hat\theta=\hat\theta(\bf X)$是$\theta$的一个无偏估计，$\Var(\hat\theta)<+\infty$. 如果对任意一个满足$E(\varphi(\bf X))=0$的$\varphi(\bf X)$，都有
+    \[ \Cov_\theta(\hat\theta,\varphi) = 0,\quad \forall \theta \in\Theta \]
+    则$\hat\theta$是$\theta$的UMVUE。
+\end{theorem}
+\begin{proof}
+    \textbf{充分性}：对$\theta$的任意一个无偏估计$\tilde\theta$
+    \[ \Var(\tilde \theta) = E(\tilde\theta - \theta)^2 = E [(\tilde\theta - \hat\theta) + (\hat\theta - \theta)]^2 \]
+    代入$\varphi(\bf X)=\tilde\theta - \hat\theta$得：
+    \[ \Var(\tilde \theta) = E(\varphi^2) + \Var(\hat\theta) + 2\Cov(\varphi,\hat\theta) \ge \Var(\hat\theta) \]
+
+    \textbf{必要性}：若存在$\theta_0 \in \Theta$，使得$\operatorname{Cov}_{\theta_0}(\hat{\theta},\phi(\bf X))=a \neq 0$。则代入$\varphi(\bf X)=b(\tilde\theta - \hat\theta)$得：
+    \[ \Var(\tilde \theta) = b^2E(\varphi^2) + \Var(\hat\theta) + 2b\Cov(\varphi,\hat\theta)=\Var(\hat\theta) + b^2E(\varphi^2) + 2ab \]
+    再令$b=-\frac{a}{E(\varphi^2)}\neq 0$，则可得$b^2E(\varphi^2) + 2ab<0$，即$\Var(\tilde \theta)<\Var(\hat\theta)$，与假设不符。
+\end{proof}
+
+\begin{example}
+    设$x_1, \cdots, x_n$是来自指数分布$Exp(1/\theta)$的样本，对于充分统计量$T=x_{1}+\cdots+x_{n}$，由于$ET=n\theta$，所以$\overline{x}=T / n$是$\theta$的无偏估计。设$\varphi=\varphi\left(x_{1}, \cdots, x_{n}\right)$是$\theta$的任一无偏估计, 则
+    \[ E \varphi(\mathbf{X})=\int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \cdot \prod_{i=1}^n,\left\{\frac1{\theta} \cdot \ee^{-x_i / \theta}\right\} \d x_1 \cdots \d x_n=0 \]
+    即
+    \[ \int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \cdot \exp\left\{-\frac{n \overline{x}}{\theta}\right\} \d x_1 \cdots \d x_n=0 \]
+    两端对$\theta$求导, 得
+    \[ \int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \frac{n \overline{x}}{\theta^{2}}  \cdot \exp\left\{-\frac{n \overline{x}}{\theta}\right\} \\d x_1 \cdots \d x_n=0 \]
+    这说明$E(\overline{x} \cdot \varphi)=0$, 从而
+    \[ \operatorname{Cov}(\overline{x}, \varphi)=E(\overline{x} \cdot \varphi)-E(\overline{x}) \cdot E(\varphi)=0    \]
+    即$\bar x$是$\theta$的UMVUE.
+\end{example}
 
 \subsection{充分性原则}
 
+\begin{lemma}[Rao--Blackwell定理]\label{lem:Rao--Blackwell}
+    设$X$和$Y$是两个随机变量，$EX=\mu,\Var(X)>0$。用条件期望构造一个新的随机变量$\varphi(Y)=E(X|Y)$，则有
+    \[ E\varphi(Y) = \mu,\Var\big(\varphi(Y)\big) \le \Var(X) \]
+    其中等号成立的充分必要条件是$X$和$\varphi(Y)$几乎处处相等.
+\end{lemma}
+\begin{proof}
+    由重期望公式易得
+    \[ E\varphi(Y)=E[E(X|Y)]=EX=\mu \]
+    将$\Var(X)$写成如下的形式：
+    \begin{align*}
+        \Var(X) & = E[(X-\varphi(Y)) + (\varphi(Y) - \mu)]^2                                                       \\
+                & = E(X-\varphi(Y))^2 + \operatorname{Var}(\varphi(Y)-\mu) + 2 E[(X-\varphi(Y))(\varphi(Y) - \mu)]
+    \end{align*}
+    由重期望公式
+    \begin{align*}
+        E[(X-\varphi(Y))(\varphi(Y) - \mu)] & =E\{ E[(X-\varphi(Y))(\varphi(Y) - \mu)|Y] \} \\
+                                            & =E\{ [\varphi(Y)-\mu][E(X|Y)-\varphi(Y)] \}=0
+    \end{align*}
+    由此即有
+    \[ \operatorname{Var}(X) = E(X-\varphi(Y))^2 + \Var(\varphi(Y)) \le \Var(\varphi(Y)) \]
+    等号成立的充要条件为
+    \[ E[X-\varphi(Y)]^2 = 0 \]
+    即$X$和$\varphi(Y)$几乎处处相等。
+\end{proof}
+
+\begin{theorem}[充分性原则]
+    设，$T=T(x_1,\cdots,x_n)$是$\theta$的充分统计量，则对$\theta$的任一无偏估计$\hat\theta$，令$\tilde\theta=E(\hat\theta|T)$，则$\tilde\theta$也是$\theta$的无偏估计，且
+    \[ \Var(\tilde\theta) \le \Var(\hat\theta) \]
+\end{theorem}
+\begin{proof}
+    由于$T$是充分统计量，故而$\tilde\theta=E(\hat\theta|T)$与$\theta$无关，因此它也是一个估计（统计量）。再将引理\ref{lem:Rao--Blackwell}取$X=\hat\theta,Y=T$即可。
+\end{proof}
+
+\begin{example}
+    设$x_1,\cdots,x_n\overset{\text{i.i.d.}}{\sim}b(1,p)$，则$\bar x$（或$T=n\bar x$）是$p$的充分统计量. 为估计$\theta=p^2$，可令
+    \[      \hat\theta_1 = \begin{cases}
+            1, & x_1=1, x_2=1; \\
+            0, & \text{其他}.
+        \end{cases}    \]
+    由于
+    \[ E(\hat\theta_1) = P(x_1=1,x_2=1) = p\cdot p =\theta \]
+    所以，$\hat\theta_1$是$\theta$的无偏估计，这个估计并不好，它只使用了两个观测值，下面我们用Rao--Blackwel定理对之加以改进：求$\hat\theta_1$关于充分统计量$T=\sum_{i=1}^nx_i$的条件期望
+    \begin{align*}
+        \hat\theta & = E(\hat\theta_1 |T=t)                                                                 \\
+                   & = P(\hat\theta_1 = 1 |T=t)                                                             \\
+                   & = \frac{P(X_1=1,X_2=1,T=t)}{P(T=t)}                                                    \\
+                   & = \frac{P( X_1=1,X_2=1,\sum_{i=3}^n X_i=t-2 )}{P(T=t)}                                 \\
+                   & = \frac{p\cdot p\cdot \binom{n-2}{t-2}p^{t-2} (1-p)^{n-t}}{\binom{n}{t}p^t(1-p)^{n-t}} \\
+                   & = \binom{n-2}{t-2}\big/\binom{n}{t} = \frac{t(t-1)}{n(n-1)},
+    \end{align*}
+\end{example}
+
+\subsection{费希尔信息量}
+
+\begin{definition}\label{def:Fisher}
+    若总体分布$p(x ; \theta), \theta \in \Theta$满足
+    \begin{enumerate}
+        \item 参数空间$\Theta$是直线上的一个开区间;
+        \item 支撑$S=\{x : p(x ; \theta)>0 \}$与$\Theta$无关;
+        \item 导数$\frac{\partial}{\partial \theta} p(x ; \theta)$对一切$\theta\in\Theta$都存在;
+        \item 对$p(x ; \theta)$, 积分与微分运算可交换次序, 即
+              \[\frac{\partial}{\partial \theta} \int_{-\infty}^{+\infty} p(x ; \theta) \mathrm{d} x=\int_{-\infty}^{+\infty} \frac{\partial}{\partial \theta} p(x ; \theta) \mathrm{d} x\]
+        \item 期望$E\left[\frac{\partial}{\partial \theta} \ln p(x ; \theta)\right]^{2}$存在,
+    \end{enumerate}
+    则称
+    \[ I(\theta)=E\left[\frac{\partial}{\partial \theta} \ln p(x ; \theta)\right]^2 \]
+    为总体分布的\textbf{费希尔信息量}(Fisher)。
+\end{definition}
+\begin{remark}
+    “$I(\theta)$越大”代表总体分布中包含未知参数$\theta$的信息越多。
+\end{remark}
+
+\begin{proposition}
+    若总体$p(x;\theta)$的费希尔信息量存在，且存在二阶导数$\frac{\partial^2}{\partial \theta^2}p(x;\theta) \forall \theta \in \Theta$，则
+    \[ I(\theta)=-E\left[ \frac{\partial^2}{\partial \theta^2}\ln p(x;\theta) \right]  \]
+\end{proposition}
+\begin{proof}
+    由于
+    \[ \int p(x;\theta) \d x = 1 \]
+    两边同时对$\theta$求偏导得：
+    \[ \frac{\partial}{\partial \theta}\int p(x;\theta) \d x = \int \frac{\partial}{\partial \theta}p(x;\theta) \d x = \int \frac{\partial}{\partial \theta}\ln p(x;\theta) p(x;\theta) \d x=0 \]
+    再同时对$\theta$求偏导得：
+    \[ \int \left[ \frac{\partial^2}{\partial \theta^2}\ln p(x;\theta) \right] p(x;\theta) \d x + \int \left[\frac{\partial}{\partial \theta}\ln p(x;\theta)\right]^2 p(x;\theta) \d x =0 \]
+    即
+    \[ E\left[ \frac{\partial^2}{\partial \theta^2}\ln p(x;\theta) \right] + I(\theta)=0  \]
+\end{proof}
+
+\begin{proposition}
+    对于总体分布$p(x ; \theta)$，若其参数$\theta$的费希尔信息量存在且为$I(\theta)$，则对于参数的函数$\tau(\theta)$的费希尔信息量为
+    \[ I(\tau(\theta))=E\left[\frac{\partial}{\partial \tau(\theta)} \ln p(x ; \theta)\right]^2=\frac{I(\theta)}{[\tau'(\theta)]^2} \]
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        I(\tau(\theta)) & =E\left[\frac{\partial}{\partial \tau(\theta)} \ln p(x ; \theta)\right]^2=E\left[\frac{\partial \theta}{\partial \tau(\theta)} \frac{\partial }{\partial \theta} \ln p(x ; \theta)\right]^2 \\
+                        & =[\frac{\partial \theta}{\partial \tau(\theta)}]^2 E \left[\frac{\partial}{\partial \theta} \ln p(x ; \theta)\right]^2 = \frac{I(\theta)}{[\tau'(\theta)]^2}
+    \end{align*}
+\end{proof}
+
 \subsection{Cramer-Rao不等式}
 
+\begin{theorem}[Cramer-Rao不等式]\label{thm:Cramer-Rao_inequality}
+    设总体分布$p(x;\theta)$存在费希尔统计量。若对$g(\theta)$的任一个\underline{无偏估计}$T$，
+    \[ g(\theta)=\int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} T\left(x_{1}, \cdots, x_{n}\right) \prod_{i=1}^{n} p\left(x_{i} ; \theta\right) \mathrm{d} x_{1} \cdots \mathrm{d} x_{n} ,\quad \forall \theta \in \Theta\]
+    的微商$g'(\theta)=\frac{\d g(\theta)}{\d \theta}$存在，并且可在积分号下进行，即
+    \begin{align*}
+        g^{\prime}(\theta) & =\int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} T(x_1, \cdots, x_n) \frac{\partial}{\partial \theta}\left(\prod_{i=1}^n p(x_i ; \theta)\right) \d x_1 \cdots \d x_n                                    \\
+                           & =\int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} T(x_1, \cdots, x_n) \left[\frac{\partial}{\partial \theta} \ln \prod_{i=1}^n p(x_i ; \theta)\right] \prod_{i=1}^n p(x_i ; \theta) \d x_1 \cdots \d x_n
+    \end{align*}
+    对离散总体, 则将上述积分改为求和符号后, 等式仍然成立. 则有
+    \[ \operatorname{Var}(T) \geq \frac1{n I(g(\theta))} \]
+    特别地，对$\theta$的无偏估计$\hat{\theta}$，有$\operatorname{Var}(\hat{\theta})\geq (n I(\theta))^{-1}$。
+\end{theorem}
+\begin{proof}
+    以连续总体为例：
+    由于
+    \[ \int p(x_i;\theta) \d x_i = 1 \]
+    两边同时对$\theta$求偏导，由于积分与微分可交换次序，于是有：
+    \begin{align*}
+        \frac{\partial}{\partial \theta}\int p(x_i;\theta) \d x_i & = \int \frac{\partial}{\partial \theta}p(x_i;\theta) \d x_i = \int \frac{\partial}{\partial \theta}\ln p(x_i;\theta) p(x_i;\theta) \d x_i \\                                                                  & =E\left[\frac{\partial}{\partial \theta} \ln p=(x_i ; \theta=)\right]=0
+    \end{align*}
+    记
+    \[ Z=\frac{\partial}{\partial \theta} \ln \prod_{i=1}^n p(x_i ; \theta)=\sum_{i=1}^n \frac{\partial}{\partial \theta} \ln p(x_i ; \theta) \]
+    则
+    \[ E(Z)=\sum_{i=1}^n E\left[\frac{\partial}{\partial \theta} \ln p(x_i ; \theta)\right]=0 \]
+    从而
+    \begin{align*}
+        \operatorname{Var}(Z) & =\sum_{i=1}^{n} \operatorname{Var}\left(\frac{\partial}{\partial \theta} \ln p\left(x_{i} ; \theta\right)\right) \\
+                              & =\sum_{i=1}^{n} E\left[\frac{\partial}{\partial \theta} \ln p\left(x_{i} ; \theta\right)\right]^{2}=n I(\theta)
+    \end{align*}
+    又由
+    \[ g^{\prime}(\theta)=E(T \cdot Z)=E((T-g(\theta)) \cdot Z) \]
+    据施瓦茨不等式, 有
+    \[ \left[g^{\prime}(\theta)\right]^{2} \leq  E\left[(T-g(\theta))^{2}\right] \cdot E\left(Z^{2}\right)=\operatorname{Var}(T) \operatorname{Var}(Z)\]
+    关于离散总体可类似证明。
+\end{proof}
+
+\begin{definition}[CR下界]
+    称$\frac1{n I(g(\theta))}$为$g(\theta)$的无偏估计的方差的\textbf{C-R下界}, 简称$g(\theta)$的CR下界。若估计式的方差达到C-R下界，则称其为参数的\textbf{有效估计}，即UMVUE。
+\end{definition}
+
+
+
 \begin{problemset}[错题记录]
-    \item （茆6.1.2）
-    \item （茆6.1.8）
-    \item （茆6.1.9）
-    \item （茆6.1.11）
-    \item （茆6.1.12-14）
-    \item （茆6.2.3(2)）
-    \item （茆6.2.8）
-    \item （茆6.3.9）
-    \item （茆6.3.14）
+    \item （茆6.1.14）设$x_1,\cdots ,x_n$是来自二点分布$b(1,p)$的一个样本，证明$\frac{1}{p}$的无偏估计不存在。
+    \item （茆6.2.3(2)）设总体分布列为$P(X=k)=(k-1) \theta^{2}(1-\theta)^{k-2}, k=2,3, \cdots, 0<\theta<1$如下,$x_1,x_2,\cdots,x_n$，试求未知参数的矩估计。
     \item （茆6.4.3）
     \item （茆6.4.4）
     \item （茆6.4.5）
@@ -172,10 +564,5 @@
     \item （茆6.4.13）
     \item （茆6.4.14）
     \item （茆6.4.16-20）
-    \item （茆6.5.2）
     \item （茆6.5.12-16）
-    \item （茆6.6.11）
-    \item （茆6.6.13）
-    \item （茆6.6.15-18）
-    \item （茆6.6.20-24）
 \end{problemset}

@@ -1,12 +1,13 @@
 \newcommand{\iidsim}{\widesim[2.33]{\mathrm{i.i.d.}}}	% independent and identically distributed
-\newcommand{\indep}{\perp\!\!\!\perp}		% independent
+\newcommand{\indep}{\Vbar}		% independent
+\newcommand{\X}{\mathcal{X}}		% 
 \newcommand{\1}{\mathbbm{1}}				% indicator
 \renewcommand{\P}{\mathbb{P}}				% probability
-%\renewcommand{\Pr}{\operatorname{P}}		% probability
 \newcommand{\as}{\mathrm{a.s.}}				% almost surely
 \newcommand{\E}{\mathbb{E}}					% expectation
 \newcommand{\Var}{\operatorname{Var}}		% variance
 \newcommand{\Cov}{\operatorname{Cov}}		% covariance
+\newcommand{\Corr}{\operatorname{Corr}}		% correlation
 \newcommand{\MSE}{\operatorname{MSE}}		% mean square error
 \newcommand{\mean}[1]{\overline{#1}}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}		% absolute value
@@ -18,16 +19,20 @@
 \newcommand{\proj}[2]{\operatorname{proj}_{#2}#1}			% projection
 \newcommand{\inprod}[2]{\left\langle #1, #2 \right\rangle}	% inner product
 \newcommand{\R}{\mathbb{R}}					% real
+\renewcommand{\Rn}{\mathbb{R}^n}				% real n dimensions
 \renewcommand{\d}{\mathrm{d}}				% differential
 \newcommand{\pd}{\partial}					% partial differential
 \newcommand{\p}[3][]{\frac{\pd^{#1}#2}{\pd{#3}^{#1}}}	% partial derivative
 \newcommand{\e}{\varepsilon}
-\newcommand{\st}{\mathrm{s.t.}\ }			% subject to, so that
+\newcommand{\st}{,\quad \mathrm{s.t.}\ }			% subject to, so that
 \newcommand{\argmin}{\operatornamewithlimits{arg\,min}}
 \newcommand{\argmax}{\operatornamewithlimits{arg\,max}}
 \newcommand{\N}{\mathcal{N}}				% normal, not natural numbers XD
-\newcommand{\vs}{\; \operatorname{vs}\;}
-\newcommand{\red}{\color[HTML]{FE0000}}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\dd}{\mathop{}\!\mathrm d}
+\newcommand{\textop}[1]{\relax\ifmmode\mathop{\text{#1}}\else\text{#1}\fi}
+\newcommand{\TT}{^{\mathrm T}}
+\newcommand{\U}{\mathrm{U}}
 
 \setlist[description]{
 	labelindent = 4em,

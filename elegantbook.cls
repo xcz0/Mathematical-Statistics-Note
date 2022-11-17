@@ -195,7 +195,7 @@
     \setCJKmonofont[BoldFont={FZHei-B01}]{FZFangSong-Z02}
     \setCJKfamilyfont{zhsong}{FZShuSong-Z01}
     \setCJKfamilyfont{zhhei}{FZHei-B01}
-    \setCJKfamilyfont{zhkai}[BoldFont={FZHei-B01}]{FZKai-Z03}
+    \setCJKfamilyfont{zhkai}[BoldFont={FZCuKaiS-R-GB}]{FZKai-Z03}
     \setCJKfamilyfont{zhfs}[BoldFont={FZHei-B01}]{FZFangSong-Z02}
     \newcommand*{\songti}{\CJKfamily{zhsong}}
     \newcommand*{\heiti}{\CJKfamily{zhhei}}
