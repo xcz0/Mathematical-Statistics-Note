@@ -1,0 +1,65 @@
+\chapter{描述性统计}
+
+\section{单变量样本}
+
+设$x = \{x_1,\dots,x_n\}$ 是单变量样本 $X_1,X_2,\cdots,X_n$ 的一个实现。这些随机变量独立同分布。
+
+一个分布通常有两个重要的数值特征：位置(location)和散度(dispersion)。位置通常由均值和中位数描述。若分布是对称的，则两者等价；若分布右偏（左偏），则均值大于（小于）中位数。对于一个未知的分布，通常使用样本均值和样本中位数描述其位置。
+
+\begin{definition}[样本均值]\label{def:sample mean}
+    将样本 $X_1,X_2,\cdots,X_n$ 的一个统计量 
+    \[ \overline{X} = \frac1n\sum_{i=1}^{n}X_{i}. \]
+    称为\textbf{样本均值}(sample mean)。
+\end{definition}
+
+\begin{definition}[样本均值]\label{def:sample median}
+    将样本 $X_1,X_2,\cdots,X_n$ 的一个统计量 
+    \[ M = \operatorname{med}(x) = \begin{cases}
+        x_{(\frac{n+1}{2})} & n \text{为奇数} \\
+        \frac{x_{(\frac{n}{2})} + x_{(\frac{n}{2}+1)}}{2} & n \text{为偶数}
+    \end{cases} \]
+    称为\textbf{样本中位数}(sample median)。其中顺序统计量$x_{(1)}\leq\dots\leq x_{(n)}$由$x_1,\dots,x_n$排列得到。
+\end{definition}
+
+分布的散度则对应着方差（或标准差）和四分位数(interquartile range, IQR)。
+
+
+\begin{description}
+      \item [样本均值](sample mean)
+            \[ \bar{x} = \frac1n\sum_{i=1}^{n}x_{i}. \]
+      \item [样本方差](sample variance)
+            \[ s^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}. \]
+            由此可得\textbf{样本标准差}(sample standard deviation) $s = \sqrt{s^2}$.
+      \item [样本中位数](sample median)
+            \[ M = \operatorname{med}(x) = \begin{cases}
+                        \quad x_{(k)},                  & n = 2k-1 \\
+                        \frac{1}{2}(x_{(k)}+x_{(k+1)}), & n = 2k
+                  \end{cases} \]
+            
+      \item [四分位数](quartile)
+            \[ Q_{1} = \operatorname{med}(x\cap(-\infty,M)), \qquad
+                  Q_{3} = \operatorname{med}(x\cap(M,+\infty)). \]
+      \item [四分位距](inter quartile range)
+            \[ \mathit{IQR} = Q_{3} - Q_{1}. \]
+      \item [极差](range)
+            \[ x_{(n)}-x_{(1)} = \max(x)-\min(x) = \max_{1\leq i,i' \leq n}\{x_{i}-x_{i'}\}. \]
+\end{description}
+
+\begin{definition}[经验分布函数]
+      样本 $X_1,X_2,\cdots,X_n$ 的\textbf{经验分布函数}为：
+      \[ F_n(x) = \frac1n\sum_{i=1}^n \1{X_i \le x}  \]
+\end{definition}
+
+\subsection{直方图}
+
+\subsection{箱线图}
+
+\begin{definition}
+      \textbf{五数概括法}(five-number summary): 以$x_{(1)},Q_{1},M,Q_{3},x_{(n)}$总结$x$, 可用\textbf{箱线图}(boxplot)表示.
+\end{definition}
+
+\subsection{QQ图}
+
+
+
+\section{相关性}

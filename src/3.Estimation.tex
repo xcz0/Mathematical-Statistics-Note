@@ -10,7 +10,7 @@
 \end{introduction}
 
 \begin{definition}[点估计]
-    用于估计参数$\gamma = g(\theta)$的统计量$T(\mathbf{X})$称为\textbf{估计量}(estimator), 记为$\hat{\gamma} = T(X)$. 估计式是随机变量, 若给定统计模型, 则其分布由参数$\theta$决定, 将观测数值代入估计式后得到的值称为\textbf{估计值}.
+    用于估计参数$\gamma = g(\theta)$的统计量$T(x)$称为\textbf{估计量}(estimator), 记为$\hat{\gamma} = T(X)$. 估计式是随机变量, 若给定统计模型, 则其分布由参数$\theta$决定, 将观测数值代入估计式后得到的值称为\textbf{估计值}.
 \end{definition}
 
 将数据代入估计式得到的估计值并不是真实的参数值，若使用新的样本，很可能会得到不同的估计值。
@@ -359,7 +359,7 @@
     应用贝叶斯公式即可得到后验分布
     \[ \pi(\mu|\bf{X})=\frac{h(\bf{X}, \mu)}{m(\bf{X})}=(2 \pi/A)^{-1/2} \exp \left\{-\frac1{2/A}{(\mu-B/A)^2}\right\}\]
     这说明在样本给定后，$\mu$的后验分布为$N(B/A,1/A)$, 即
-    \[ \mu | \mathbf{X} \sim N\left(\frac{n \overline{x} \tau^2 +\theta\sigma_0^2}{n\tau^2 +\sigma_0^2}, \frac{\sigma_0^2\tau^2}{n \tau^2 +\sigma_0^2}\right)\]
+    \[ \mu | x \sim N\left(\frac{n \overline{x} \tau^2 +\theta\sigma_0^2}{n\tau^2 +\sigma_0^2}, \frac{\sigma_0^2\tau^2}{n \tau^2 +\sigma_0^2}\right)\]
     故正态分布是正态总体的共枙先验分布。后验均值即为其贝叶斯估计:
     \[ \hat{\mu}=\frac{n\tau^2}{n\tau^2 +\sigma_0^2} \bar{x}+\frac{\sigma_0^2}{n\tau^2 +\sigma_0^2} \theta\]
     它是样本均值$\bar x$与先验均值$\theta$的加权平均. 当总体方差$\sigma_0^2$较小或样本量$n$较大时, 样本均值$\bar x$的权重较大; 当先验方差$\tau^2$较小时, 先验均值$\theta$的权重较大, 这一综合很符合人们的经验。
@@ -396,8 +396,8 @@
 \end{definition}
 
 \begin{theorem}[UMVUE的充要条件]
-    设$\mathbf{X}=(x_1, \cdots, x_n)$是来自某总体的一个样本，$\hat{g}(\mathbf{X})$是$g(\theta)$的一个无偏估计，$\Var(\hat{g}(\mathbf{X}))<+\infty$。$\hat{g}(\mathbf{X})$是$g(\theta)$的UMVUE的充要条件为：对任意一个满足$\E(l(\mathbf{X}))=0$的统计量$l(\mathbf{X})$，都有
-    \[ \Cov_\theta(\hat{g}(\mathbf{X}),l(\mathbf{X})) = \E_\theta(\hat{g}(\mathbf{X}),l(\mathbf{X})) = 0,\quad \forall \theta \in\Theta \]
+    设$x=(x_1, \cdots, x_n)$是来自某总体的一个样本，$\hat{g}(x)$是$g(\theta)$的一个无偏估计，且$\Var(\hat{g}(x))<+\infty$。则$\hat{g}(x)$是$g(\theta)$的UMVUE的充要条件为：对任意一个满足$\E(l(x))=0$的统计量$l(x)$，都有
+    \[ \Cov_\theta(\hat{g}(x),l(x)) = \E_\theta(\hat{g}(x),l(x)) = 0,\quad \forall \theta \in\Theta \]
 \end{theorem}
 \begin{proof}
     \textbf{充分性}：对$g(\theta)$的任意一个无偏估计$\hat{g_1}$，记$l=\hat{g_1} - \hat{g}$，则$E(l)=0$，且
@@ -415,7 +415,7 @@
 
 \begin{example}
     设$x_1, \cdots, x_n$是来自指数分布$Exp(1/\theta)$的样本，对于充分统计量$T=x_{1}+\cdots+x_{n}$，由于$ET=n\theta$，所以$\overline{x}=T / n$是$\theta$的无偏估计。设$E\varphi\left(x_{1}, \cdots, x_{n}\right)=0$是，则
-    \[ E \varphi(\mathbf{X})=\int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \cdot \prod_{i=1}^n,\left\{\frac1{\theta} \cdot \ee^{-x_i / \theta}\right\} \d x_1 \cdots \d x_n=0 \]
+    \[ E \varphi(x)=\int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \cdot \prod_{i=1}^n,\left\{\frac1{\theta} \cdot \ee^{-x_i / \theta}\right\} \d x_1 \cdots \d x_n=0 \]
     即
     \[ \int_0^{+\infty} \cdots \int_0^{+\infty} \varphi(x_1, \cdots, x_n) \cdot \exp\left\{-\frac{n \overline{x}}{\theta}\right\} \d x_1 \cdots \d x_n=0 \]
     两端对$\theta$求导, 得

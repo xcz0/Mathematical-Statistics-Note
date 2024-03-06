@@ -17,6 +17,13 @@
 \usetikzlibrary{decorations.pathreplacing,decorations.pathmorphing,arrows.meta,patterns}
 \usepackage[below]{placeins}
 \usepackage[free-standing-units]{siunitx}
+% \usepackage{tikz}
+% \usetikzlibrary{external}
+% \tikzexternalize[prefix=figures/]
+% \newcommand{\inputtikz}[1]{%
+%   \tikzsetnextfilename{#1}%
+%   \input{#1.tikz}%
+% }
 
 \input{settings.tex}
 
@@ -29,14 +36,14 @@
 
 \mainmatter
 \include{src/1.Intro}
-\include{src/2.Data_Reduction}
-\include{src/3.Point_Estimation}
-\include{src/4.Interval_Estimation}
-\include{src/5.Hypothesis_Testing}
-\include{src/6.Linear_Model}
+\include{src/2.Descriptive Statistics}
+\include{src/3.Estimation}
+\include{src/4.Hypothesis Testing}
+\include{src/5.Conﬁdence Region}
+\include{src/6.Optimality Theory}
+\include{src/7.Regression Models}
 
 \appendix
-
 \include{src/Appendix}
 
 \end{document}

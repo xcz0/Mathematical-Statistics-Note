@@ -1,0 +1,18 @@
+\chapter{附录}
+
+\section{指数族}
+
+指数族（Exponential Families）是数理统计中非常重要的一个分布族
+
+\begin{definition}[指数族]
+	对于参数分布族 $\{ P_\theta: \theta \in \Theta \}$，若存在分布族的充分统计量$T(x)$，参数空间上的向量值函数 $\eta(\theta)$，实值函数 $B(\theta)$和非负可测函数 $h(x)$，使得分布族的密度函数看表示为：
+	\[ f_{\theta}(x) = h(x) \exp\{\eta(\theta)^{\top}T(x)-B(\theta)\}  \]
+    则称分布族$\{ P_\theta: \theta \in \Theta \}$为\textbf{指数族}(Exponential Families)。其中$B(\theta)$称为\textbf{势函数}，可写为：
+    \[ B(\theta)=\ln \int_{\Omega}h(x) \exp\{\eta(\theta)^{\top}T(x)\} \d x  \]
+\end{definition}
+
+由指数族密度函数的性质可以立刻得到，指数族的支撑集仅与 $h(x)$ 相关，与未知参数 $\theta$ 无关。若分布族的支撑集与未知参数相关，如 $[0,\theta]$ 上的均匀分布族，则该分布族一定不是指数族。
+
+常见的指数族有：正态分布、卡方分布、二项分布、多项分布、Poisson分布、Pascal分布、beta分布、gamma分布、对数正态分布等；常见的非指数族有：均匀分布、带有位置参数（location parameters）的指数分布、极值分布、Weibull分布、超几何分布、Cauchy分布、Laplace分布等。
+
+\section{多元正态分布}

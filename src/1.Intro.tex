@@ -50,31 +50,7 @@
       统计量的分布称为它的\textbf{抽样分布}(sampling distribution), 含有总体 (样本分布) 的一部分信息.
 \end{definition}
 
-统计量函数, 不依赖未知总体, 给出了一种数据约简(reduction). 对于实数值样本$x = \{x_{1},\dots,x_{n}\}$, 常见的统计量有: \label{descriptive-statistics}
-\begin{description}
-      \item [样本均值](sample mean)
-            \[ \bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_{i}. \]
-      \item [样本方差](sample variance)
-            \[ s^{2} = \frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}. \]
-            由此可得\textbf{样本标准差}(sample standard deviation) $s = \sqrt{s^2}$.
-      \item [样本中位数](sample median)
-            \[ M = \operatorname{med}(x) = \begin{cases}
-                        \quad x_{(k)},                  & n = 2k-1 \\
-                        \frac{1}{2}(x_{(k)}+x_{(k+1)}), & n = 2k
-                  \end{cases} \]
-            其中\emph{顺序统计量}$x_{(1)}\leq\dots\leq x_{(n)}$由$x_{1},\dots,x_{n}$排列得到.
-      \item [四分位数](quartile)
-            \[ Q_{1} = \operatorname{med}(x\cap(-\infty,M)), \qquad
-                  Q_{3} = \operatorname{med}(x\cap(M,+\infty)). \]
-      \item [四分位距](inter quartile range)
-            \[ \mathit{IQR} = Q_{3} - Q_{1}. \]
-      \item [极差](range)
-            \[ x_{(n)}-x_{(1)} = \max(x)-\min(x) = \max_{1\leq i,i' \leq n}\{x_{i}-x_{i'}\}. \]
-\end{description}
-
-\begin{definition}
-      \textbf{五数概括法}(five-number summary): 以$x_{(1)},Q_{1},M,Q_{3},x_{(n)}$总结$x$, 可用\textbf{箱形图}(boxplot)表示.
-\end{definition}
+统计量函数, 不依赖未知总体, 给出了一种数据约简(reduction). 
 
 \begin{problemset}[错题记录]
       \item （茆5.5.10）设$x_1,\dotsc,x_n$是来自正态分布$N(\mu,\sigma^2)$的样本，在$\mu$已知时给出$\sigma^2$的一个充分统计量
